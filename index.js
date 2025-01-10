@@ -164,6 +164,7 @@ function objectCollision(obj1, obj2) {
 	const xDifference = obj2.position.x - obj1.position.x;
 	const yDifference = obj2.position.y - obj1.position.y;
 
+	//The distance between two objects is the value of the hypotenuse of a right triangle. a2 + b2 = c2
 	const distance = Math.sqrt(
 		xDifference * xDifference + yDifference * yDifference
 	);
@@ -419,7 +420,7 @@ window.addEventListener("keyup", (e) => {
 	}
 });
 
-//Animate colors
+//Effect ticker for color change and danger level
 setInterval(() => {
 	colorIndex = (colorIndex + 1) % 3;
 	asteroidSpawnRate = Math.max(100, asteroidSpawnRate - 1);
@@ -444,7 +445,6 @@ function spawnAsteroids() {
 		})
 	);
 
-	console.log(asteroidSpawnRate);
 	timeoutId = setTimeout(spawnAsteroids, asteroidSpawnRate);
 }
 
