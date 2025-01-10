@@ -175,6 +175,22 @@ function objectCollision(obj1, obj2) {
 	return false;
 }
 
+function breakAsteroid(asteroid) {
+	return new Asteroid({
+		position: {
+			x: asteroid.position.x,
+			y: asteroid.position.y,
+		},
+		velocity: {
+			x: asteroid.velocity.x + Math.random() < 0.5 ? 1 : -1,
+			y: asteroid.velocity.y + Math.random() < 0.5 ? 1 : -1,
+		},
+		radius: Math.min(30, asteroid.radius / 1.5),
+		value: asteroid.value + 50,
+		speed: asteroid.speed - 1,
+	});
+}
+
 //Polygon collision library
 function circleTriangleCollision(circle, triangle) {
 	// Check if the circle is colliding with any of the triangle's edges
@@ -238,12 +254,15 @@ function spawnLogic(objects, colliders, player) {
 			const collider = colliders[i];
 
 			if (objectCollision(object, collider)) {
-				objects.splice(i, 1);
-				colliders.splice(i, 1);
-
 				if (collider.hasOwnProperty("value")) {
 					score.value += collider.value;
+
+					asteroids.push(breakAsteroid(collider));
+					asteroids.push(breakAsteroid(collider));
 				}
+
+				objects.splice(i, 1);
+				colliders.splice(i, 1);
 			}
 		}
 
@@ -299,10 +318,10 @@ function asteroidLogic() {
 
 	//Smaller asteroids are faster and worth more points
 	if (radius < 30) {
-		speed += 2;
+		speed += 1;
 		value = 300;
 	} else if (radius > 30 && radius < 60) {
-		speed += 1;
+		speed += 0.5;
 		value = 200;
 	} else {
 		speed = speed;
@@ -352,6 +371,9 @@ function animate() {
 	playerLogic();
 	spawnLogic(missiles, asteroids);
 	spawnLogic(asteroids, missiles, player);
+	asteroids.forEach((asteroid) => {
+		asteroid.update();
+	});
 
 	if (gameOver) {
 		window.cancelAnimationFrame(animationId);
