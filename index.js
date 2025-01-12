@@ -175,15 +175,15 @@ function objectCollision(obj1, obj2) {
 	return false;
 }
 
-function breakAsteroid(asteroid, value) {
+function breakAsteroid(asteroid, missile, value) {
 	return new Asteroid({
 		position: {
 			x: asteroid.position.x,
 			y: asteroid.position.y,
 		},
 		velocity: {
-			x: asteroid.velocity.x + value,
-			y: asteroid.velocity.y + value,
+			x: missile.velocity.x / missileSpeed + value,
+			y: missile.velocity.y / missileSpeed + value,
 		},
 		radius: Math.min(30, asteroid.radius / 1.75),
 		value: asteroid.value + 50,
@@ -257,8 +257,8 @@ function spawnLogic(objects, colliders, player) {
 				if (collider.hasOwnProperty("value")) {
 					score.value += collider.value;
 
-					asteroids.push(breakAsteroid(collider, 1));
-					asteroids.push(breakAsteroid(collider, -1));
+					asteroids.push(breakAsteroid(collider, object, 1));
+					asteroids.push(breakAsteroid(collider, object, -1));
 				}
 
 				objects.splice(i, 1);
