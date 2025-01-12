@@ -185,7 +185,7 @@ function breakAsteroid(asteroid, missile, value) {
 			x: missile.velocity.x / missileSpeed + value,
 			y: missile.velocity.y / missileSpeed + value,
 		},
-		radius: Math.min(30, asteroid.radius / 1.75),
+		radius: Math.max(20, asteroid.radius / 1.9),
 		value: asteroid.value + 50,
 		speed: asteroid.speed - 2,
 	});
@@ -257,8 +257,10 @@ function spawnLogic(objects, colliders, player) {
 				if (collider.hasOwnProperty("value")) {
 					score.value += collider.value;
 
-					asteroids.push(breakAsteroid(collider, object, 1));
-					asteroids.push(breakAsteroid(collider, object, -1));
+					if (collider.radius > 30) {
+						asteroids.push(breakAsteroid(collider, object, 1));
+						asteroids.push(breakAsteroid(collider, object, -1));
+					}
 				}
 
 				objects.splice(i, 1);
