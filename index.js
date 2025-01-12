@@ -175,19 +175,19 @@ function objectCollision(obj1, obj2) {
 	return false;
 }
 
-function breakAsteroid(asteroid) {
+function breakAsteroid(asteroid, value) {
 	return new Asteroid({
 		position: {
 			x: asteroid.position.x,
 			y: asteroid.position.y,
 		},
 		velocity: {
-			x: asteroid.velocity.x + Math.random() < 0.5 ? 1 : -1,
-			y: asteroid.velocity.y + Math.random() < 0.5 ? 1 : -1,
+			x: asteroid.velocity.x + value,
+			y: asteroid.velocity.y + value,
 		},
-		radius: Math.min(30, asteroid.radius / 1.5),
+		radius: Math.min(30, asteroid.radius / 1.75),
 		value: asteroid.value + 50,
-		speed: asteroid.speed - 1,
+		speed: asteroid.speed - 2,
 	});
 }
 
@@ -257,8 +257,8 @@ function spawnLogic(objects, colliders, player) {
 				if (collider.hasOwnProperty("value")) {
 					score.value += collider.value;
 
-					asteroids.push(breakAsteroid(collider));
-					asteroids.push(breakAsteroid(collider));
+					asteroids.push(breakAsteroid(collider, 1));
+					asteroids.push(breakAsteroid(collider, -1));
 				}
 
 				objects.splice(i, 1);
