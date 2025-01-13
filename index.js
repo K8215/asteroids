@@ -480,5 +480,4 @@ const player = new Player({
 	velocity: { x: 0, y: 0 },
 });
 const score = new Score(0);
-player.draw();
 animate();
