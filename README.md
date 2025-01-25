@@ -4,11 +4,11 @@ This is a simple Asteroids game implemented in JavaScript using the HTML5 Canvas
 ## Installation
 Clone the repository to your local machine:
 
-`git clone https://github.com/yourusername/asteroids-js.git`
+`[git clone https://github.com/yourusername/asteroids-js.git](https://github.com/K8215/asteroids.git)`
 
 Navigate to the project directory:
 
-`cd asteroids-js`
+`cd asteroids`
 
 Open index.html in your web browser to start the game.
 
